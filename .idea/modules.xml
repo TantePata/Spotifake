@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/spotifake.iml" filepath="$PROJECT_DIR$/spotifake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spotifake_server.iml" filepath="$PROJECT_DIR$/spotifake_server.iml" />
     </modules>
   </component>
 </project>
