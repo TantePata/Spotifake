@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pugicorn.spotifake_server.entity.User;
-import com.pugicorn.spotifake_server.UserRepository;
+import com.pugicorn.spotifake_server.mapper.UserRepository;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,7 +29,8 @@ public class UserController {
 
     @PostMapping(path="") // Map ONLY POST Requests
     public @ResponseBody
-    String test (@RequestBody Map<String, Object> payload, HttpServletResponse serverResponse) throws IOException {
+    String test (@RequestBody Map<String, Object> payload,
+                 HttpServletResponse serverResponse) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         String token = payload.get("token").toString();
@@ -54,7 +55,7 @@ public class UserController {
             JsonElement jelement = new JsonParser().parse(response.body().string());
             JsonObject jobject = jelement.getAsJsonObject();
 
-            serverResponse.sendError(401, jobject.getAsJsonObject("error").get("message").toString());
+            serverResponse.sendError(response.code(), jobject.getAsJsonObject("error").get("message").toString());
             return "bidon";
         }
 

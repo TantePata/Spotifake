@@ -1,4 +1,4 @@
-package com.pugicorn.spotifake_server;
+package com.pugicorn.spotifake_server.mapper;
 
 import com.pugicorn.spotifake_server.entity.User;
 import org.springframework.data.jpa.repository.Query;

@@ -1,0 +1,96 @@
+package com.pugicorn.spotifake_server.entity;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.pugicorn.spotifake_server.controller.UserController;
+import com.pugicorn.spotifake_server.mapper.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.List;
+import java.util.Optional;
+
+@Entity // This tells Hibernate to make a table out of this class
+@Table(name = "playlist")
+public class Playlist {
+
+    @Id
+    private String id;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "url_image")
+    private String urlImage;
+
+    @Column(name = "id_user")
+    private String idUser;
+
+    @Column(name = "id_party")
+    private String idParty;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getIdParty() {
+        return idParty;
+    }
+
+    public void setIdParty(String idParty) {
+        this.idParty = idParty;
+    }
+
+    public Playlist(JsonElement playlist) {
+
+        JsonObject jobject = playlist.getAsJsonObject();
+        this.id = jobject.get("id").toString().substring(1, jobject.get("id").toString().length() - 1 );
+
+        this.title = jobject.get("name").toString().substring(1, jobject.get("name").toString().length() - 1 );
+
+        this.urlImage = jobject.get("images").getAsJsonArray().get(0).getAsJsonObject().get("url").toString();
+        this.urlImage = this.urlImage.substring(1, this.urlImage.length() - 1);
+
+        this.idUser = jobject.get("owner").getAsJsonObject().get("id").toString();
+        this.idUser = this.idUser.substring(1, this.idUser.length() - 1);
+
+        this.id = jobject.get("id").toString().substring(1, jobject.get("id").toString().length() - 1 );
+
+        this.idParty = null;
+    }
+
+    public Playlist(){}
+}

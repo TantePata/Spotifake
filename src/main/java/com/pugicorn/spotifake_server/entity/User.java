@@ -60,9 +60,10 @@ public class User {
 
         this.id = jobject.get("id").toString().substring(1, jobject.get("id").toString().length() - 1 );
         this.username  = (jobject.get("display_name").isJsonNull() ? this.id : jobject.get("display_name").toString().substring(1, jobject.get("display_name").toString().length() - 1 ));
-        JsonArray avatarurl = jobject.getAsJsonArray("images");
-        if (avatarurl.size() != 1) {
-            this.avatarUrl = avatarurl.get(0).getAsJsonObject().get("url").toString();
+        JsonArray avatarUrl = jobject.getAsJsonArray("images");
+        if (avatarUrl.size() > 0) {
+            this.avatarUrl = avatarUrl.get(0).getAsJsonObject().get("url").toString();
+            this.avatarUrl = this.avatarUrl.substring(1,this.avatarUrl.length() - 1);
         }
     }
     public User(){}
