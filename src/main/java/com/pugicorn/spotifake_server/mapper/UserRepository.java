@@ -14,4 +14,7 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     @Query("SELECT u FROM User u WHERE u.username LIKE CONCAT('%',:username,'%')")
     List<User> findUsersByUsername(@Param("username") String username);
+
+    @Query("SELECT u.id FROM User u WHERE u.id IN (:userId)")
+    List<String> findExistedUser(@Param("userId") List<String> userId);
 }

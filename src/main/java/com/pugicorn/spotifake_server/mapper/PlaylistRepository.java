@@ -15,4 +15,7 @@ public interface PlaylistRepository extends CrudRepository<Playlist, String> {
 
     @Query("SELECT p FROM Playlist p WHERE p.title LIKE CONCAT('%',:title,'%')")
     List<Playlist> findPlaylistByTitle(@Param("title") String title);
+
+    @Query("SELECT p.id FROM Playlist p WHERE p.id IN (:playlistId)")
+    List<String> findExistedPlaylist(@Param("playlistId") List<String> playlistId);
 }

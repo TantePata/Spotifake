@@ -44,7 +44,7 @@ public class UserController {
         Response response = call.execute();
 
         if (response.code() == 200) {
-            User n = new User(response.body().string(), token);
+            User n = new User(response.body().string());
             Optional<User> myUser = userRepository.findById(n.getId());
             if (! myUser.isPresent()){
                 userRepository.save(n);

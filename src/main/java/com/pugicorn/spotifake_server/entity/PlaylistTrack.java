@@ -1,20 +1,19 @@
 package com.pugicorn.spotifake_server.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "playlist_track")
+@IdClass(PlaylistTrack.class)
 public class PlaylistTrack implements Serializable {
+
     @Id
-    @Column(name = "idPlaylist")
+    @Column(name = "id_playlist")
     private String idPlaylist;
 
     @Id
-    @Column(name = "idTrack")
+    @Column(name = "id_track")
     private String idTrack;
 
     public String getIdPlaylist() {
@@ -31,5 +30,13 @@ public class PlaylistTrack implements Serializable {
 
     public void setIdTrack(String idTrack) {
         this.idTrack = idTrack;
+    }
+
+    public PlaylistTrack(String idPlaylist, String idTrack) {
+        this.idPlaylist = idPlaylist;
+        this.idTrack = idTrack;
+    }
+
+    public PlaylistTrack() {
     }
 }

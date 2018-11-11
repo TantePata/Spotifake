@@ -2,11 +2,13 @@ package com.pugicorn.spotifake_server.entity;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.HashMap;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "track")
@@ -15,7 +17,7 @@ public class Track {
     @Id
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "title")
     private String title;
 
     @Column(name = "artist")
@@ -24,10 +26,10 @@ public class Track {
     @Column(name = "album")
     private String album;
 
-    @Column(name = "coverUrl")
+    @Column(name = "cover_url")
     private String coverUrl;
 
-    @Column(name = "sampleUrl")
+    @Column(name = "sample_url")
     private String sampleUrl;
 
     public String getId() {
@@ -70,29 +72,37 @@ public class Track {
         this.coverUrl = coverUrl;
     }
 
-    public Track(JsonElement playlist) {
+    public String getSampleUrl() {
+        return sampleUrl;
+    }
 
-        JsonObject jobject = playlist.getAsJsonObject();
+    public void setSampleUrl(String sampleUrl) {
+        this.sampleUrl = sampleUrl;
+    }
+
+    public Track(JsonElement  track) {
+        JsonObject jobject = track.getAsJsonObject().get("track").getAsJsonObject();
+
         this.id = mconcat(jobject.get("id").toString());
 
         this.title = mconcat(jobject.get("name").toString());
 
-        this.artist = jobject.get("images").getAsJsonArray().get(0).getAsJsonObject().get("url").toString();
+        this.artist = jobject.get("artists").getAsJsonArray().get(0).getAsJsonObject().get("name").toString();
         this.artist = mconcat(this.artist);
 
-        this.album = jobject.get("owner").getAsJsonObject().get("id").toString();
+        this.album = jobject.get("album").getAsJsonObject().get("name").toString();
         this.album = mconcat(this.album);
 
-        this.id = mconcat(jobject.get("id").toString());
+        this.coverUrl = jobject.get("album").getAsJsonObject().get("images").getAsJsonArray().get(1).getAsJsonObject().get("url").toString();
+        this.coverUrl = mconcat(this.coverUrl);
 
-        this.coverUrl = null;
+        this.sampleUrl = mconcat(jobject.get("preview_url").toString());
 
-        this.sampleUrl = null;
     }
 
     public Track(){}
 
     private String mconcat(String myString) {
-        return myString.substring(1,myString.length() -1);
+        return myString.substring(1,myString.length() - 1);
     }
 }

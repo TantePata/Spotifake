@@ -6,11 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
     @Id
+    @Column(name = "id")
     private String id;
 
     @Column(name = "username")
@@ -54,7 +56,7 @@ public class User {
         this.token = token;
     }
 
-    public User(String jsonString, String token) {
+    public User(String jsonString) {
         JsonElement jelement = new JsonParser().parse(jsonString);
         JsonObject jobject = jelement.getAsJsonObject();
 
