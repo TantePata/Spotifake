@@ -1,5 +1,6 @@
 package com.pugicorn.spotifake_server.entity;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -93,8 +94,11 @@ public class Track {
         this.album = jobject.get("album").getAsJsonObject().get("name").toString();
         this.album = mconcat(this.album);
 
-        this.coverUrl = jobject.get("album").getAsJsonObject().get("images").getAsJsonArray().get(1).getAsJsonObject().get("url").toString();
-        this.coverUrl = mconcat(this.coverUrl);
+        JsonArray image = jobject.get("album").getAsJsonObject().get("images").getAsJsonArray();
+        if (image.size() > 0) {
+            this.coverUrl = image.get(0).getAsJsonObject().get("url").toString();
+            this.coverUrl = mconcat(this.coverUrl);
+        }
 
         this.sampleUrl = mconcat(jobject.get("preview_url").toString());
 

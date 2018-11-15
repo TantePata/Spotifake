@@ -77,20 +77,42 @@ public class Playlist {
     public Playlist(JsonElement playlist) {
 
         JsonObject jobject = playlist.getAsJsonObject();
-        this.id = jobject.get("id").toString().substring(1, jobject.get("id").toString().length() - 1 );
+        this.id = jobject.get("id").toString();
 
-        this.title = jobject.get("name").toString().substring(1, jobject.get("name").toString().length() - 1 );
+        this.title = mconcat(jobject.get("name").toString());
 
-        this.urlImage = jobject.get("images").getAsJsonArray().get(0).getAsJsonObject().get("url").toString();
-        this.urlImage = this.urlImage.substring(1, this.urlImage.length() - 1);
+        JsonArray urlImage = jobject.get("images").getAsJsonArray();
+        if (urlImage.size() > 0){
+            this.urlImage = urlImage.get(0).getAsJsonObject().get("url").toString();
+            if (this.urlImage.length() > 3) {
+                this.urlImage = this.urlImage.substring(1, this.urlImage.length() - 1);
+            }else{
+                int i = 42;
+            }
+        } else {
+            this.urlImage = "";
+        }
 
-        this.idUser = jobject.get("owner").getAsJsonObject().get("id").toString();
-        this.idUser = this.idUser.substring(1, this.idUser.length() - 1);
+        JsonObject owner = jobject.get("owner").getAsJsonObject();
+        if (owner.size()> 0){
+            this.idUser = owner.get("id").toString();
+            if (this.idUser.length() > 3){
+                this.idUser = this.idUser.substring(1, this.idUser.length() - 1);
+            } else {
+                int i =3;
+            }
+        }
 
-        this.id = jobject.get("id").toString().substring(1, jobject.get("id").toString().length() - 1 );
+        this.id = mconcat(jobject.get("id").toString());
 
         this.idParty = null;
+
     }
 
     public Playlist(){}
+
+    private String mconcat(String myString) {
+        return myString.substring(1,myString.length() - 1);
+    }
+
 }
