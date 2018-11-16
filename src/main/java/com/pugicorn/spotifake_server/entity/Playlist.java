@@ -34,6 +34,9 @@ public class Playlist {
     @Column(name = "id_party")
     private String idParty;
 
+    @Column(name = "nb_track")
+    private int nbTracks;
+
     public String getId() {
         return id;
     }
@@ -74,6 +77,14 @@ public class Playlist {
         this.idParty = idParty;
     }
 
+    public int getNbTracks() {
+        return nbTracks;
+    }
+
+    public void setNbTracks(int nbTrack) {
+        this.nbTracks = nbTrack;
+    }
+
     public Playlist(JsonElement playlist) {
 
         JsonObject jobject = playlist.getAsJsonObject();
@@ -101,6 +112,14 @@ public class Playlist {
             } else {
                 int i =3;
             }
+        }
+
+        JsonObject nbTracks = jobject.get("tracks").getAsJsonObject();
+        if (nbTracks.size() > 0){
+            this.nbTracks = nbTracks.get("total").getAsInt();
+            this.nbTracks = (this.nbTracks > 100 ? 100 : this.nbTracks);
+        } else {
+            this.nbTracks = 0;
         }
 
         this.id = mconcat(jobject.get("id").toString());

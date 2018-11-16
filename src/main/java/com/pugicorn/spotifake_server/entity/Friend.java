@@ -17,8 +17,14 @@ public class Friend {
     @Column(name = "user_2")
     private String user2;
 
-    @Column(name = "accepted")
-    private String accepted;
+    @Column(name = "state")
+    private String state;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 
     public String getId() {
         return id;
@@ -44,11 +50,27 @@ public class Friend {
         this.user2 = user2;
     }
 
-    public String getAccepted() {
-        return accepted;
+    public String getState() {
+        return state;
     }
 
-    public void setAccepted(String accepted) {
-        this.accepted = accepted;
+    public void setState(String accepted) {
+        this.state = accepted;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }
