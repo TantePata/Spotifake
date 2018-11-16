@@ -53,6 +53,7 @@ public class PartyController {
 
 
         Party pa = new Party();
+        pa.setOwner(owner);
         pa.setIdPlaylist(addedPl.getId());
         pa.setDifficulty(Integer.parseInt(difficulty));
         pa.setNbTracks(nbTracks);

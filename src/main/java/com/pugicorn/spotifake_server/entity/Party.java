@@ -27,6 +27,9 @@ public class Party implements Serializable {
     @Column(name = "finished")
     private boolean finished;
 
+    @Column(name = "owner")
+    private String owner;
+
     @Column(name = "nb_track")
     private int nbTracks;
 
@@ -118,5 +121,13 @@ public class Party implements Serializable {
 
     public void setNbTracks(int nbTracks) {
         this.nbTracks = nbTracks;
+    }
+
+    public String isOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
