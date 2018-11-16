@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class Friend {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "user_1")
     private String user1;
@@ -26,11 +26,11 @@ public class Friend {
     @Column(name = "avatar_url")
     private String avatarUrl;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -23,10 +23,7 @@ public class FriendController {
 
     @PostMapping(path="") // Map ONLY POST Requests
     public @ResponseBody
-    String addFriend (@RequestBody Map<String, Object> payload,
-                      HttpServletResponse serverResponse)
-            throws IOException { OkHttpClient client = new OkHttpClient();
-
+    String addFriend (@RequestBody Map<String, Object> payload) {
         String user1 = payload.get("user1").toString();
         String user2 = payload.get("user2").toString();
         String username = payload.get("username").toString();

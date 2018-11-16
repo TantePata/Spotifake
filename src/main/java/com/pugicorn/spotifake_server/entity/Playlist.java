@@ -8,10 +8,7 @@ import com.pugicorn.spotifake_server.controller.UserController;
 import com.pugicorn.spotifake_server.mapper.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +17,9 @@ import java.util.Optional;
 public class Playlist {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id",unique=true, nullable = false)
     private String id;
 
     @Column(name = "title")
