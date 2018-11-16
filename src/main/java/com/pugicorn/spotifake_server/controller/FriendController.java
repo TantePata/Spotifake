@@ -1,6 +1,7 @@
 package com.pugicorn.spotifake_server.controller;
 
 import com.pugicorn.spotifake_server.entity.Friend;
+import com.pugicorn.spotifake_server.entity.User;
 import com.pugicorn.spotifake_server.mapper.FriendRepository;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class FriendController {
     }
     @GetMapping(path="")
     public @ResponseBody
-    List<Friend> friendAcceptedAndPending(@RequestParam("myId") String idUser) {
+    List<User> friendAcceptedAndPending(@RequestParam("myId") String idUser) {
         // This returns a JSON or XML with the users
         return friendRepository.findFriends(idUser);
     }
