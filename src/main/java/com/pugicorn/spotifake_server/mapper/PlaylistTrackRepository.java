@@ -16,10 +16,10 @@ public interface PlaylistTrackRepository extends CrudRepository<PlaylistTrack, S
 
     @Modifying
     @Query(value = "insert into playlist_track (id_playlist,id_track) " +
-            "SELECT pt.id_playlist, track.id FROM track " +
+            "SELECT :toAdd, track.id FROM track " +
             "left join playlist_track pt on track.id = pt.id_track" +
             " where pt.id_playlist IN (:playlistId) limit :nb", nativeQuery = true)
     @Transactional
     void addMusicInPlayByNB(@Param("playlistId") List<String> playlistId,
-                                    @Param("nb") int nb);
+                            @Param("nb") int nb, @Param("toAdd") String toAdd);
 }

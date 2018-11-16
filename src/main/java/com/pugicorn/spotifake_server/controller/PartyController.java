@@ -39,7 +39,7 @@ public class PartyController {
         String difficulty = payload.get("difficulty").toString();
         int nbTracks = Integer.parseInt(payload.get("nbTracks").toString());
         ArrayList users = (ArrayList) payload.get("userList");
-        ArrayList playlistList = (ArrayList) payload.get("userList");
+        ArrayList playlistList = (ArrayList) payload.get("playlistList");
 
         String owner = payload.get("owner").toString();
 
@@ -66,12 +66,16 @@ public class PartyController {
         for (Object user : users) {
             listPartUser.add(new PartyUser(par.getId(), user.toString()));
         }
+        List<String> listPlay = new ArrayList<>();
+        for (Object play : playlistList) {
+            listPlay.add(play.toString());
+        }
 
         partyUserRepository.saveAll(listPartUser);
 
         pl.setIdParty(par.getId());
 
-        //playlistTrackRepository.addMusicInPlayByNB(addedPl.getId(), nbTracks);
+        playlistTrackRepository.addMusicInPlayByNB(listPlay, nbTracks, addedPl.getId());
 
         return "ok";
     }
