@@ -10,17 +10,17 @@ public class PartyUser implements Serializable {
     @Id
     //@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_party")
-    private String idParty;
+    private int idParty;
 
     @Id
     @Column(name = "id_user")
     private String idUser;
 
-    public String getIdParty() {
+    public int getIdParty() {
         return idParty;
     }
 
-    public void setIdParty(String idParty) {
+    public void setIdParty(int idParty) {
         this.idParty = idParty;
     }
 
@@ -30,5 +30,10 @@ public class PartyUser implements Serializable {
 
     public void setIdUSer(String idUSer) {
         this.idUser = idUSer;
+    }
+
+    public PartyUser(int idParty, String idUser) {
+        this.idParty = idParty;
+        this.idUser = idUser;
     }
 }

@@ -2,6 +2,7 @@ package com.pugicorn.spotifake_server.controller;
 
 
 import com.pugicorn.spotifake_server.entity.Party;
+import com.pugicorn.spotifake_server.entity.PartyUser;
 import com.pugicorn.spotifake_server.entity.Playlist;
 import com.pugicorn.spotifake_server.mapper.PartyRepository;
 import com.pugicorn.spotifake_server.mapper.PartyUserRepository;
@@ -14,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/party") // This means URL's start with /demo (after Application path)
@@ -45,6 +44,7 @@ public class PartyController {
         String owner = payload.get("owner").toString();
 
         Playlist pl = new Playlist();
+        pl.setId( UUID.randomUUID().toString());
         pl.setIdUser(owner);
         pl.setTitle(owner + "Party");
         pl.setNbTracks(nbTracks);
@@ -61,10 +61,13 @@ public class PartyController {
 
         Party par = partyRepository.save(pa);
 
-        for (Object user :
-                users) {
-            int i = 42;
+
+        List<PartyUser> listPartUser = new ArrayList<>();
+        for (Object user : users) {
+            listPartUser.add(new PartyUser(par.getId(), user.toString()));
         }
+
+        partyUserRepository.saveAll(listPartUser);
 
         pl.setIdParty(par.getId());
 

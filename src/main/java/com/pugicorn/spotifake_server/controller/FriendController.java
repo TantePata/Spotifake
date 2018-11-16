@@ -34,7 +34,7 @@ public class FriendController {
         f.setUser2(user2);
         f.setUsername(username);
         f.setAvatarUrl(avatarUrl);
-        f.setState("pending");
+        f.setState("yes");
 
         friendRepository.save(f);
         return "ok";

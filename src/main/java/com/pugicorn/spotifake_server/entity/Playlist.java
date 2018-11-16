@@ -8,7 +8,10 @@ import com.pugicorn.spotifake_server.controller.UserController;
 import com.pugicorn.spotifake_server.mapper.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +20,6 @@ import java.util.Optional;
 public class Playlist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id",unique=true, nullable = false)
     private String id;
 
     @Column(name = "title")
@@ -32,7 +32,7 @@ public class Playlist {
     private String idUser;
 
     @Column(name = "id_party")
-    private String idParty;
+    private int idParty;
 
     @Column(name = "nb_track")
     private int nbTracks;
@@ -69,11 +69,11 @@ public class Playlist {
         this.idUser = idUser;
     }
 
-    public String getIdParty() {
+    public int getIdParty() {
         return idParty;
     }
 
-    public void setIdParty(String idParty) {
+    public void setIdParty(int idParty) {
         this.idParty = idParty;
     }
 
@@ -124,7 +124,7 @@ public class Playlist {
 
         this.id = mconcat(jobject.get("id").toString());
 
-        this.idParty = null;
+        this.idParty = -1;
 
     }
 
