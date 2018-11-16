@@ -71,7 +71,7 @@ public class PartyController {
 
         pl.setIdParty(par.getId());
 
-        playlistTrackRepository.addMusicInPlayByNB(addedPl.getId(), nbTracks);
+        //playlistTrackRepository.addMusicInPlayByNB(addedPl.getId(), nbTracks);
 
         return "ok";
     }
