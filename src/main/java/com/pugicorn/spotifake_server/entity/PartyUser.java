@@ -1,5 +1,7 @@
 package com.pugicorn.spotifake_server.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -35,5 +37,9 @@ public class PartyUser implements Serializable {
     public PartyUser(int idParty, String idUser) {
         this.idParty = idParty;
         this.idUser = idUser;
+    }
+
+    @Autowired
+    public PartyUser() {
     }
 }
