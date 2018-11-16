@@ -13,6 +13,6 @@ import java.util.List;
 
 public interface PartyRepository extends CrudRepository<Party, String> {
 
-    @Query("SELECT p.id FROM Party p WHERE p.id IN (:playlistId)")
-    List<Party> findExistedPlaylist(@Param("playlistId") List<String> playlistId);
+    @Query("SELECT p FROM Party p LEFT JOIN PartyUser as pu on pu.idParty = p.id WHERE pu.idUser = :idUser")
+    List<Party> findAllForUser(@Param("idUser") String idUser);
 }

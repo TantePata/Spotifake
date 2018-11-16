@@ -13,7 +13,7 @@ public class PartyUser implements Serializable {
 
     @Id
     @Column(name = "id_user")
-    private String idUSer;
+    private String idUser;
 
     public String getIdParty() {
         return idParty;
@@ -24,10 +24,10 @@ public class PartyUser implements Serializable {
     }
 
     public String getIdUSer() {
-        return idUSer;
+        return idUser;
     }
 
     public void setIdUSer(String idUSer) {
-        this.idUSer = idUSer;
+        this.idUser = idUSer;
     }
 }
