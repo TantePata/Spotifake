@@ -33,7 +33,7 @@ public class Party implements Serializable {
     @Column(name = "current_track_number")
     private int currentTrackNumber;
 
-    @Column(name = "ownerd")
+    @Column(name = "owner")
     private String owner;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "idParty")
