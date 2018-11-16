@@ -4,6 +4,7 @@ package com.pugicorn.spotifake_server.controller;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.pugicorn.spotifake_server.entity.Troll;
 import com.pugicorn.spotifake_server.entity.User;
 import com.pugicorn.spotifake_server.mapper.UserRepository;
 import okhttp3.Call;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,8 +31,8 @@ public class UserController {
 
     @PostMapping(path="") // Map ONLY POST Requests
     public @ResponseBody
-    String test (@RequestBody Map<String, Object> payload,
-                 HttpServletResponse serverResponse) throws IOException {
+    Troll test (@RequestBody Map<String, Object> payload,
+                HttpServletResponse serverResponse) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         String token = payload.get("token").toString();
@@ -49,14 +51,15 @@ public class UserController {
             if (! myUser.isPresent()){
                 userRepository.save(n);
             }
-            return n.getId();
+
+            return new Troll(n.getId());
         } else {
 
             JsonElement jelement = new JsonParser().parse(response.body().string());
             JsonObject jobject = jelement.getAsJsonObject();
 
             serverResponse.sendError(response.code(), jobject.getAsJsonObject("error").get("message").toString());
-            return "bidon";
+            return new Troll("troll");
         }
 
     }
